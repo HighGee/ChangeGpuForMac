@@ -1,0 +1,20 @@
+#!/bin/bash
+# for macbook_pro's graphics card
+if [[ $1 == "low" ]]; then
+    sudo pmset -a GPUSwitch 0
+elif [[ $1 == "high" ]]; then
+    sudo pmset -a GPUSwitch 1
+elif [[ $1 == "auto" ]]; then
+    sudo pmset -a GPUSwitch 2
+else
+    NOW=$(pmset -g | grep gpuswitch | awk '{print $2}')
+    echo "用于选择性能low/high或auto（自动切换性能）的显示卡"
+    echo "Usage: changegpuformac low|high|auto"
+    if [[ $NOW == "0" ]]; then
+	echo "当前使用的是低性能显示卡"
+    elif [[ $NOW == "1" ]]; then
+	echo "当前使用的是高性能显示卡"
+    else
+	echo "当前显示卡处于自动切换模式"
+    fi
+fi
